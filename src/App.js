@@ -5,7 +5,8 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import OrderBook from './components/OrderBook'
-import About from './components/About'
+import Home from './components/Home'
+import Contact from './components/Contact'
 import { Route, Switch, Link, BrowserRouter } from 'react-router-dom'
 
 function App() {
@@ -21,13 +22,14 @@ function App() {
               <NavDropdown title="Portfolio" id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/bitstamp">Bitstamp</NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link as={Link} to="/about" >About</Nav.Link>
+              <Nav.Link as={Link} to="/contact" >Contact</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
+        
         <Switch>
-          <Route exact path="/" />
-          <Route path="/about" component={About} />
+          <Route exact path="/" component={Home}/>
+          <Route path="/contact" component={Contact} />
           <Route path="/bitstamp" component={OrderBook} />
         </Switch>
       </BrowserRouter>

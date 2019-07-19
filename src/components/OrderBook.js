@@ -11,7 +11,6 @@ const subscribeMsg = {
   };
 
 function OrderBook() {
-    // Declare a new state variable, which we'll call "count"
     const [bids, setBids] = useState([]);
     const [asks, setAsks] = useState([]);
 
@@ -64,10 +63,10 @@ function OrderBook() {
 
     return (
         <Row className="justify-content-center text-center mt-3">
-            <Col sm="auto">
+            <Col xs="auto">
                 <PriceTable side="bid" priceLevels={bids} />
             </Col>
-            <Col sm="auto">
+            <Col xs="auto">
                 <PriceTable side="ask" priceLevels={asks} />
             </Col>
         </Row>
