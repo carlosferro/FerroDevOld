@@ -14,7 +14,7 @@ function App() {
     <Container fluid>
       <BrowserRouter>
         <Navbar className="font-weight-bold" bg="dark" variant="dark" expand="lg">
-          <Navbar.Brand as={Link} to="/">FerroDev</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/home">FerroDev</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
