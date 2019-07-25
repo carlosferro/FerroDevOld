@@ -8,11 +8,13 @@ function About() {
     return (
         <Row className="text-center row justify-content-around">
             <Col xs={"auto"}>
-                <Card className="mt-4" style={{ width: '20rem' }}>
+                <Card className="mt-4" style={{width: '20rem'}}>
                     <Card.Body>
                         <Card.Text>
-                            <p>Feel free to send me sugestions, questions or just know me.</p>
-                            <a href="mailto:ferro@ferrodev.com"><Button variant="dark">Mail To</Button></a>
+                            <p>Feel free to send me sugestions, questions or just get to know me.
+                            </p>
+                            <a href="mailto:ferro@ferrodev.com"><Button variant="dark">Mail To
+                            </Button></a>
                         </Card.Text>
                     </Card.Body>
                 </Card>

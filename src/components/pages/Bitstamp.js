@@ -5,11 +5,10 @@ import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-const bitstampContracts = ["bchbtc", "bcheur","ltcusd", "bchusd", "btceur", "btcusd", "ethbtc", "etheur",
-    "ethusd", "eurusd", "ltcbtc", "ltceur",  "xrpusd", "xrpeur", "xrpbtc",].sort();
+const bitstampContracts = ["bchbtc", "bcheur", "ltcusd", "bchusd", "btceur", "btcusd", "ethbtc", "etheur",
+    "ethusd", "eurusd", "ltcbtc", "ltceur", "xrpusd", "xrpeur", "xrpbtc",].sort();
 
 function Bitstamp() {
-    const [lastUpdate, setLastUpdate] = useState([]);
     const [priceLevels, setPriceLevels] = useState({});
     const [activeContracts, setActiveContracts] = useState(["btcusd"]);
     const [ws, setWs] = useState();
@@ -35,12 +34,10 @@ function Bitstamp() {
                     let data = response.data;
                     let contract = response.channel.substring(11);
 
-                    // If remove this, page is not updated ???????????????
-                    setLastUpdate([data.bids.slice(0, 10),data.asks.slice(0, 10)]);
-
                     setPriceLevels(priceLevels => {
                         priceLevels[contract] = [data.bids.slice(0, 10), data.asks.slice(0, 10)];
-                        return priceLevels;
+                        return JSON.parse(JSON.stringify(priceLevels));
+                        ;
                     });
                     break;
                 }
@@ -101,7 +98,8 @@ function Bitstamp() {
                                     ws.send(getUnsubscribeString(bitstampContract)) :
                                     ws.send(getSubscribeString(bitstampContract))
                                 }
-                                value={bitstampContract}>{bitstampContract.toUpperCase()}</ToggleButton>
+                                value={bitstampContract}>{bitstampContract.toUpperCase()}
+                            </ToggleButton>
                     )}
                 </ToggleButtonGroup>
             </Col>
