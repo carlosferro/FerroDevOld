@@ -5,12 +5,12 @@ import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-const bitstampContracts = ["btcusd", "btceur", "eurusd", "xrpusd", "xrpeur", "xrpbtc", "ltcusd",
-    "ltceur", "ltcbtc", "ethusd", "etheur", "ethbtc", "bchusd", "bcheur", "bchbtc"];
+const bitstampContracts = ["bchbtc", "bcheur","ltcusd", "bchusd", "btceur", "btcusd", "ethbtc", "etheur",
+    "ethusd", "eurusd", "ltcbtc", "ltceur",  "xrpusd", "xrpeur", "xrpbtc",].sort();
 
 function Bitstamp() {
-    const [bids, setBids] = useState([]);
-    const [asks, setAsks] = useState([]);
+    const [lastUpdate, setLastUpdate] = useState([]);
+    const [priceLevels, setPriceLevels] = useState({});
     const [activeContracts, setActiveContracts] = useState(["btcusd"]);
     const [ws, setWs] = useState();
 
@@ -20,36 +20,6 @@ function Bitstamp() {
         },
         [],
     );
-    useEffect(
-        () => {
-            setWs(ws => {
-            ws.onmessage = function (evt) {
-                    let response = JSON.parse(evt.data);
-                    switch (response.event) {
-                        case 'data': {
-                            let data = response.data;
-                            let contract = response.channel.substring(11);
-                            console.log(activeContracts);
-                            setBids(data.bids.slice(0, 10));
-                            setAsks(data.bids.slice(0, 10));
-                            break;
-                        }
-                        case 'bts:request_reconnect': {
-                            initWs();
-                            break;
-                        }
-                        default:
-                            break;
-                    }
-
-                };
-            return ws;
-            })
-        },
-        [activeContracts],
-    );
-
-    let onMessage =
 
     function initWs() {
         let newWs = new WebSocket("wss://ws.bitstamp.net");
@@ -60,24 +30,18 @@ function Bitstamp() {
 
         newWs.onmessage = function (evt) {
             let response = JSON.parse(evt.data);
-
             switch (response.event) {
                 case 'data': {
                     let data = response.data;
                     let contract = response.channel.substring(11);
-                    console.log(activeContracts);
-                    setBids(data.bids.slice(0, 10));
-                    setAsks(data.bids.slice(0, 10));
-                    // if (contract => activeContracts.includes(contract)) {
-                    //     setBids(bids => {
-                    //         bids[contract] = data.bids.slice(0, 10);
-                    //         return bids;
-                    //     });
-                    //     setAsks(asks => {
-                    //         asks[contract] = data.asks.slice(0, 10);
-                    //         return asks;
-                    //     });
-                    // }
+
+                    // If remove this, page is not updated ???????????????
+                    setLastUpdate([data.bids.slice(0, 10),data.asks.slice(0, 10)]);
+
+                    setPriceLevels(priceLevels => {
+                        priceLevels[contract] = [data.bids.slice(0, 10), data.asks.slice(0, 10)];
+                        return priceLevels;
+                    });
                     break;
                 }
                 case 'bts:request_reconnect': {
@@ -122,7 +86,6 @@ function Bitstamp() {
 
     const handleContractChange = val => {
         setActiveContracts(val);
-        console.log("val:" + val)
     };
 
     return (
@@ -133,24 +96,27 @@ function Bitstamp() {
                     {bitstampContracts.map(
                         (bitstampContract) =>
                             <ToggleButton
+                                variant="outline-dark"
                                 onChange={() => activeContracts.includes(bitstampContract) ?
                                     ws.send(getUnsubscribeString(bitstampContract)) :
                                     ws.send(getSubscribeString(bitstampContract))
                                 }
-                                value={bitstampContract}>{bitstampContract}</ToggleButton>
+                                value={bitstampContract}>{bitstampContract.toUpperCase()}</ToggleButton>
                     )}
                 </ToggleButtonGroup>
             </Col>
             <Col>
-                <OrderBook asks={asks}
-                           bids={bids}/>
-                {/*<OrderBook asks={asks["btcusd"] ? asks["btcusd"] : []}*/}
-                           {/*bids={bids["btcusd"] ? bids["btcusd"] : []}/>*/}
-                {/*{activeContracts.map(*/}
-                    {/*(contract) => <OrderBook asks={asks[contract] ? asks[contract] : []}*/}
-                                             {/*bids={bids[contract] ? bids[contract] : []}/>*/}
-                {/*)}*/}
+                <Row className="justify-content-center text-center">
+                    {activeContracts.map(contract => <Col xs="auto" className="border">
+                            <h1>{contract.toUpperCase()}</h1>
+                            <OrderBook
+                                asks={priceLevels[contract] ? priceLevels[contract][1] : []}
+                                bids={priceLevels[contract] ? priceLevels[contract][0] : []}/>
+                        </Col>
+                    )}
+                </Row>
             </Col>
+
         </Row>
     );
 }

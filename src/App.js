@@ -4,9 +4,9 @@ import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
-import OrderBook from './components/OrderBook'
-import Home from './components/Home'
-import Contact from './components/Contact'
+import Bitstamp from './components/pages/Bitstamp'
+import Home from './components/pages/Home'
+import Contact from './components/pages/Contact'
 import { Route, Switch, Link, BrowserRouter } from 'react-router-dom'
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
     <Container fluid>
       <BrowserRouter>
         <Navbar className="font-weight-bold" bg="dark" variant="dark" expand="lg">
-          <Navbar.Brand as={Link} to="/home">FerroDev</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">FerroDev</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
@@ -30,7 +30,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path="/contact" component={Contact} />
-          <Route path="/bitstamp" component={OrderBook} />
+          <Route path="/bitstamp" component={Bitstamp} />
         </Switch>
       </BrowserRouter>
     </Container>
