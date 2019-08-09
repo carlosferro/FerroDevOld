@@ -20,6 +20,7 @@ function Bitstamp() {
         [],
     );
 
+
     function initWs() {
         let newWs = new WebSocket("wss://ws.bitstamp.net");
 
@@ -51,8 +52,7 @@ function Bitstamp() {
 
         };
 
-        newWs.onclose = function () {
-            console.log('Websocket connection closed');
+        newWs.onerror = function () {
         };
 
         newWs.onclose = function () {
@@ -85,8 +85,9 @@ function Bitstamp() {
         setActiveContracts(val);
     };
 
+    // TODO: Order books
     return (
-        <Row className="mt-3">
+        <Row>
             <Col xs="auto">
                 <ToggleButtonGroup vertical type="checkbox" value={activeContracts}
                                    onChange={handleContractChange}>

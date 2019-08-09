@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
 function PriceRow(props) {
     return (
@@ -10,5 +11,9 @@ function PriceRow(props) {
         </>
     )
 }
+
+PriceRow.propTypes = {
+    priceLevel: PropTypes.array,
+};
 
 export default PriceRow

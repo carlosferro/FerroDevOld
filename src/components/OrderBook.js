@@ -2,6 +2,7 @@ import React from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import PriceTable from './PriceTable'
+import PropTypes from 'prop-types';
 
 function OrderBook(props) {
     return (
@@ -15,5 +16,9 @@ function OrderBook(props) {
         </Row>
     )
 }
+
+OrderBook.propTypes = {
+    bids: PropTypes.array,
+};
 
 export default OrderBook;

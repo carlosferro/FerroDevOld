@@ -1,6 +1,7 @@
 import React from 'react'
 import PriceRow from './PriceRow'
 import Table from 'react-bootstrap/Table'
+import PropTypes from 'prop-types';
 
 function PriceTable(props) {
 
@@ -32,5 +33,10 @@ function PriceTable(props) {
         </div>
     )
 }
+
+PriceTable.propTypes = {
+    side: PropTypes.string,
+    priceLevels: PropTypes.array,
+};
 
 export default PriceTable
