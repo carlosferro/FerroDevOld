@@ -11,9 +11,8 @@ import Contact from './components/pages/Contact'
 import {Route, Switch, Link, BrowserRouter} from 'react-router-dom'
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
-import {UserProvider} from "./context/UserContext";
+import {UserProvider} from "./components/context/UserContext";
 import MyExchange from "./components/pages/MyExchange";
-import LoginFailed from "./components/pages/LoginFailed";
 
 function App() {
     return (
@@ -46,7 +45,6 @@ function App() {
                         <Route path="/login" component={Login}/>
                         <Route path="/register" component={Register}/>
                         <Route path="/myexchange" component={MyExchange}/>
-                        <Route path="/loginfailed" component={LoginFailed}/>
                     </Switch>
                 </BrowserRouter>
             </Container>

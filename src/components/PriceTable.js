@@ -24,10 +24,13 @@ function PriceTable(props) {
                 }
                 </thead>
                 <tbody>
-                {props.priceLevels.map((priceLevel) =>
+                {props.priceLevels ? props.priceLevels.map((priceLevel) =>
                     <PriceRow id={priceLevel[0].toString()} priceLevel={props.side === "bid" ?
                         priceLevel.slice().reverse() : priceLevel}/>
+                ) : (
+                    <></>
                 )}
+                {}
                 </tbody>
             </Table>
         </div>

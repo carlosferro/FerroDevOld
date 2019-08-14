@@ -1,8 +1,7 @@
 import React, {useContext} from 'react'
 import Nav from "react-bootstrap/Nav";
 import {Link} from 'react-router-dom'
-import UserContext from '../context/UserContext'
-import {Redirect} from 'react-router-dom'
+import UserContext from './context/UserContext'
 
 
 function NavAuth() {

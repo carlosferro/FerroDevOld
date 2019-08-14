@@ -3,11 +3,9 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import UserContext from '../../context/UserContext'
+import UserContext from '../context/UserContext'
 import {Link, Redirect} from 'react-router-dom'
-import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Spinner from "react-bootstrap/Spinner";
-import Overlay from "react-bootstrap/Overlay";
 import Toast from "react-bootstrap/Toast";
 
 // TODO: Validate input inputs
@@ -16,6 +14,7 @@ function Login() {
     const [password, setPassword] = useState();
     const [logging, setLoggin] = useState(false);
     const [show, setShow] = useState(false);
+
     const [state, setState] = useContext(UserContext);
 
     function handleUsernameChange(e) {
@@ -32,6 +31,7 @@ function Login() {
         setLoggin(true);
 
         //http://localhost:8080/
+        // https://ferroexchange.herokuapp.com/auth/signin
         fetch('https://ferroexchange.herokuapp.com/auth/signin', {
             method: 'POST',
             headers: {
@@ -41,14 +41,14 @@ function Login() {
             body: JSON.stringify({username: username, password: password})
         }).then(response => {
                 setLoggin(false);
-                if (response.status == 200) {
+                if (response.status === 200) {
                     return response.json()
                 } else {
-                    console.log(response.json());
                     throw new Error();
                 }
             }
         ).then((data) => {
+                console.log(data.token)
                 setState(state => setState({...state, logged: true, token: data.token}));
             }, error => {
                 setShow(true);
@@ -59,6 +59,7 @@ function Login() {
     if (state.logged) {
         return <Redirect to='/'/>;
     }
+
     return (
         <Row className="justify-content-around">
             <Col xs={"auto"}>

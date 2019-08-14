@@ -3,8 +3,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import UserContext from '../../context/UserContext'
-import {Link, Redirect} from 'react-router-dom'
+import UserContext from '../context/UserContext'
+import {Redirect} from 'react-router-dom'
 import Spinner from "react-bootstrap/Spinner";
 import Toast from "react-bootstrap/Toast";
 
@@ -40,7 +40,7 @@ function Register() {
             body: JSON.stringify({username: username, password: password})
         }).then(response => {
                 setRegistering(false);
-                if (response.status == 200) {
+                if (response.status === 200) {
                     return response.json()
                 } else {
                     throw new Error();
