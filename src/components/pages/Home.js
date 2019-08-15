@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import FerroDev from '../../images/FerroDev.png'
-import Orderbook from '../../images/OrderBook.png'
+import OrderBook from '../../images/OrderBook.png'
 import JumbotronBackGround from '../../images/JumbotronBG.png'
 import MyExchange from '../../images/MyExchange.png'
 import {Link} from 'react-router-dom'
@@ -60,7 +60,7 @@ function Home() {
                 </Col>
                 <Col xs={"auto"}>
                     <Card className="mb-3" style={{width: '20rem'}}>
-                        <Card.Img variant="top" src={Orderbook}/>
+                        <Card.Img variant="top" src={OrderBook}/>
                         <Card.Body>
                             <Card.Title>Bitstamp</Card.Title>
                             <Card.Text>
