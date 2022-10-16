@@ -1,4 +1,8 @@
+## Purpose
+
 Development of a website using React.js to be used as a portfolio and for study purposes.
+
+##
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
